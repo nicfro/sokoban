@@ -2,22 +2,34 @@ import numpy as np
 import pygame
 import numpy as np
 import math
- 
-BLACK = (0, 0, 0)
+
+BLACK = (0,     0,   0)
 WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
- 
+GREEN = (0,   255,   0)
+RED   = (255,   0,   0)
+BLUE =  (0  ,   0, 255)
+
+
 pygame.init()
- 
+
+screen_width = 700
+screen_height = 700
+
+
 # Set the width and height of the screen [width, height]
-size = [100, 100]
-screen = pygame.display.set_mode(size)
- 
+screen = pygame.display.set_mode([screen_width,screen_height])
+
 pygame.display.set_caption("Sokoban")
- 
+
 done = False
- 
+sprite_width = 50
+sprite_height = 50
+
+screen = pygame.display.set_mode([screen_width, screen_height])
+
+all_sprites_list = pygame.sprite.Group()
+
+
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
 
@@ -83,7 +95,7 @@ def move(position, board, direction):
 	if legalMove(position, board, direction):
 		move = board[tuple(position + direction)]
 		current = board[tuple(position)]
-		
+
 		if move == "e":
 			board[tuple(position + direction)] = "p"
 			if current == "#":
@@ -173,12 +185,23 @@ while not done:
                 direction = R
                 new_board, new_position = move(new_position, new_board, direction)
                 print(new_board)
-                
 
-    #screen.fill(BLACK)
+    for row in range(len(game)):
+        for column in range(len(game[0])):
+            color = BLACK
+            current_elem = game[row][column]
+            if current_elem == "w":
+                color = WHITE
+            elif current_elem == "p":
+                color = RED
+            elif current_elem == "g":
+                color = GREEN
+            elif current_elem == "b":
+                color = BLUE
+            pygame.draw.rect(screen,color,[sprite_width*column,sprite_height*row,sprite_width,sprite_height])
 
-    #pygame.display.flip()
- 
+    pygame.display.flip()
+
     # --- Limit to 60 frames per second
     clock.tick(60)
 # Close the window and quit.
