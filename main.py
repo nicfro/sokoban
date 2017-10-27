@@ -9,6 +9,14 @@ GREEN = (0,   255,   0)
 RED   = (255,   0,   0)
 BLUE =  (0  ,   0, 255)
 
+image_empty = pygame.image.load("sprites/empty.png")
+image_wall = pygame.image.load("sprites/wall.png")
+image_player = pygame.image.load("sprites/player.png")
+image_player_goal = pygame.image.load("sprites/playerGoal.png")
+image_goal = pygame.image.load("sprites/goal.png")
+image_box = pygame.image.load("sprites/box.png")
+image_box_goal = pygame.image.load("sprites/boxGoal.png")
+
 
 pygame.init()
 
@@ -178,7 +186,7 @@ while not done:
                 new_board, new_position = move(new_position, new_board, direction)
                 print(new_board)
             if event.key == pygame.K_LEFT:
-            	direction = L 
+            	direction = L
             	new_board, new_position = move(new_position, new_board, direction)
             	print(new_board)
             if event.key == pygame.K_RIGHT:
@@ -188,17 +196,22 @@ while not done:
 
     for row in range(len(game)):
         for column in range(len(game[0])):
-            color = BLACK
             current_elem = game[row][column]
             if current_elem == "w":
-                color = WHITE
+                screen.blit(image_wall,(sprite_width*column, sprite_height*row))
             elif current_elem == "p":
-                color = RED
+                screen.blit(image_player,(sprite_width*column, sprite_height*row))
             elif current_elem == "g":
-                color = GREEN
+                screen.blit(image_goal,(sprite_width*column, sprite_height*row))
             elif current_elem == "b":
-                color = BLUE
-            pygame.draw.rect(screen,color,[sprite_width*column,sprite_height*row,sprite_width,sprite_height])
+                screen.blit(image_box,(sprite_width*column, sprite_height*row))
+            elif current_elem == "e":
+                screen.blit(image_empty,(sprite_width*column, sprite_height*row))
+            elif current_elem == "#":
+                screen.blit(image_player_goal,(sprite_width*column, sprite_height*row))
+            elif current_elem == "@":
+                screen.blit(image_box_goal,(sprite_width*column, sprite_height*row))
+#pygame.draw.rect(screen,color,[sprite_width*column,sprite_height*row,sprite_width,sprite_height])
 
     pygame.display.flip()
 
