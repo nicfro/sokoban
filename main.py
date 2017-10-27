@@ -184,20 +184,20 @@ while not done:
         for column in range(len(new_board[0])):
             current_elem = new_board[row][column]
             if current_elem == "w":
-                screen.blit(image_wall,(sprite_width*column, sprite_height*row))
+                image = image_wall
             elif current_elem == "p":
-                screen.blit(image_player,(sprite_width*column, sprite_height*row))
+                image = image_player
             elif current_elem == "g":
-                screen.blit(image_goal,(sprite_width*column, sprite_height*row))
+                image = image_goal
             elif current_elem == "b":
-                screen.blit(image_box,(sprite_width*column, sprite_height*row))
+                image = image_box
             elif current_elem == "e":
-                screen.blit(image_empty,(sprite_width*column, sprite_height*row))
+                image = image_empty
             elif current_elem == "#":
-                screen.blit(image_player_goal,(sprite_width*column, sprite_height*row))
+                image = image_player
             elif current_elem == "@":
-                screen.blit(image_box_goal,(sprite_width*column, sprite_height*row))
-
+                image = image_box_goal
+            screen.blit(image,(sprite_width*column, sprite_height*row))
 
     pygame.display.flip()
 
