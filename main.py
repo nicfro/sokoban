@@ -171,20 +171,13 @@ while not done:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 direction = U
-                new_board, new_position = move(new_position, new_board, direction)
-                print(new_board)
             if event.key == pygame.K_DOWN:
                 direction = D
-                new_board, new_position = move(new_position, new_board, direction)
-                print(new_board)
             if event.key == pygame.K_LEFT:
             	direction = L 
-            	new_board, new_position = move(new_position, new_board, direction)
-            	print(new_board)
             if event.key == pygame.K_RIGHT:
                 direction = R
-                new_board, new_position = move(new_position, new_board, direction)
-                print(new_board)
+            new_board, new_position = move(new_position, new_board, direction)    
 
     for row in range(len(game)):
         for column in range(len(game[0])):
