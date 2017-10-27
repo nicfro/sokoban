@@ -1,7 +1,7 @@
 import numpy as np
 import pygame
-import numpy as np
 import math
+import copy
 
 BLACK = (0,     0,   0)
 WHITE = (255, 255, 255)
@@ -56,6 +56,7 @@ R = (0,1)
 L = (0,-1)
 U = (-1,0)
 D = (1,0)
+NO = (0,0)
 
 #savedImage = pygame.image.load("sprite.png").convert()
 #b.image = pygame.image.load("sprite.png").convert()
@@ -145,9 +146,9 @@ def move(position, board, direction):
 					board[tuple(position)] = "e"
 
 		new_position = position + direction
-		return board, new_position
+		return copy.copy(board), new_position
 	else:
-		return board, position
+		return copy.copy(board), position
 
 def isDone(board, goals):
 	if np.shape(np.where(board=="@"))[1] == goals:
@@ -155,11 +156,12 @@ def isDone(board, goals):
 	else:
 		return 0
 
-new_board, new_position = move(player_pos, game, L)
-
+new_board, new_position = move(player_pos, game, NO)
+moves = 0
 # -------- Main Program Loop -----------
 while not done:
     # --- Main event loop
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
@@ -172,11 +174,12 @@ while not done:
             	direction = L
             if event.key == pygame.K_RIGHT:
                 direction = R
+            moves += 1
             new_board, new_position = move(new_position, new_board, direction)
 
-    for row in range(len(game)):
-        for column in range(len(game[0])):
-            current_elem = game[row][column]
+    for row in range(len(new_board)):
+        for column in range(len(new_board[0])):
+            current_elem = new_board[row][column]
             if current_elem == "w":
                 screen.blit(image_wall,(sprite_width*column, sprite_height*row))
             elif current_elem == "p":
@@ -191,7 +194,8 @@ while not done:
                 screen.blit(image_player_goal,(sprite_width*column, sprite_height*row))
             elif current_elem == "@":
                 screen.blit(image_box_goal,(sprite_width*column, sprite_height*row))
-#pygame.draw.rect(screen,color,[sprite_width*column,sprite_height*row,sprite_width,sprite_height])
+
+
     pygame.display.flip()
 
     # --- Limit to 60 frames per second
