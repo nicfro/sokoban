@@ -17,6 +17,7 @@ image_player      = pygame.image.load(sprite_folder + "player.png")
 image_player_goal = pygame.image.load(sprite_folder + "playerGoal.png")
 image_goal        = pygame.image.load(sprite_folder + "goal.png")
 image_box         = pygame.image.load(sprite_folder + "box.png")
+image_box2        = pygame.image.load(sprite_folder + "box2.png")
 image_box_goal    = pygame.image.load(sprite_folder + "boxGoal.png")
 
 game = np.array([["w","w","w","w","w","w","w","w"],
@@ -157,9 +158,9 @@ def isDone(board, goals):
 new_board, new_position = move(player_pos, game, NO)
 moves = 0
 # -------- Main Program Loop -----------
+anim_count = 1
 while not done:
     # --- Main event loop
-    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
@@ -190,7 +191,10 @@ while not done:
             elif current_elem == "g":
                 image = image_goal
             elif current_elem == "b":
-                image = image_box
+                if anim_count == 1:
+                    image = image_box
+                elif anim_count == -1:
+                    image = image_box2
             elif current_elem == "e":
                 image = image_empty
             elif current_elem == "#":
@@ -198,10 +202,10 @@ while not done:
             elif current_elem == "@":
                 image = image_box_goal
             screen.blit(image,(sprite_width*column, sprite_height*row))
-
+    anim_count *= -1
     pygame.display.flip()
 
     # --- Limit to 60 frames per second
-    clock.tick(60)
+    clock.tick(10)
 # Close the window and quit.
 pygame.quit()
