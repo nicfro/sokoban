@@ -49,7 +49,7 @@ D = (1,0)
 #savedImage = pygame.image.load("sprite.png").convert()
 #b.image = pygame.image.load("sprite.png").convert()
 
-pygame.key.set_repeat(50,50)
+pygame.key.set_repeat(200,200)
 
 
 '''
@@ -75,7 +75,7 @@ game = np.array([["e","e","w","w","w","w","w","e"],
 				 ["w","w","w","e","b","g","w","e"],
 				 ["w","g","w","w","b","e","w","e"],
 				 ["w","e","w","e","g","e","w","w"],
-				 ["w","b","e","b","b","b","g","w"],
+				 ["w","b","e","@","b","b","g","w"],
 				 ["w","e","e","e","g","e","e","w"],
 				 ["w","w","w","w","w","w","w","w"]])
 
@@ -162,13 +162,6 @@ def isDone(board, goals):
 		return 0
 
 new_board, new_position = move(player_pos, game, L)
-
-
-
-
-#print(board[tuple(player_pos+R+R)])
-print(new_board)
-#print(tuple(player_pos-(0,1)))
 
 # -------- Main Program Loop -----------
 while not done:
