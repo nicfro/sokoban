@@ -58,11 +58,7 @@ U = (-1,0)
 D = (1,0)
 NO = (0,0)
 
-#savedImage = pygame.image.load("sprite.png").convert()
-#b.image = pygame.image.load("sprite.png").convert()
-
 pygame.key.set_repeat(200,200)
-
 
 '''
 w = wall
