@@ -17,7 +17,7 @@ image_player      = pygame.image.load(sprite_folder + "player.png")
 image_player_goal = pygame.image.load(sprite_folder + "playerGoal.png")
 image_goal        = pygame.image.load(sprite_folder + "goal.png")
 image_box         = pygame.image.load(sprite_folder + "box.png")
-image_box2        = pygame.image.load(sprite_folder + "box2.png")
+image_box2        = pygame.image.load(sprite_folder + "box2.png")#Outcomment if not poke
 image_box_goal    = pygame.image.load(sprite_folder + "boxGoal.png")
 
 game = np.array([["w","w","w","w","w","w","w","w"],
@@ -49,6 +49,7 @@ sprite_height = 50
 
 screen = pygame.display.set_mode([screen_width, screen_height])
 
+#TODO: Find out why you wrote this.
 all_sprites_list = pygame.sprite.Group()
 
 
@@ -173,6 +174,7 @@ while not done:
             	direction = L
             if event.key == pygame.K_RIGHT:
                 direction = R
+            #TODO: This is why other keys will trigger movement
             moves += 1
             new_board, new_position = move(new_position, new_board, direction)
 
