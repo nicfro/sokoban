@@ -17,11 +17,22 @@ image_goal = pygame.image.load("sprites/goal.png")
 image_box = pygame.image.load("sprites/box.png")
 image_box_goal = pygame.image.load("sprites/boxGoal.png")
 
+game = np.array([["e","e","w","w","w","w","w","e"],
+				 ["w","w","w","e","e","e","w","e"],
+				 ["w","g","p","b","e","e","w","e"],
+				 ["w","w","w","e","b","g","w","e"],
+				 ["w","g","w","w","b","e","w","e"],
+				 ["w","e","w","e","g","e","w","w"],
+				 ["w","b","e","@","b","b","g","w"],
+				 ["w","e","e","e","g","e","e","w"],
+				 ["w","w","w","w","w","w","w","w"]])
 
+size = np.shape(game)
+print(size)
 pygame.init()
 
-screen_width = 700
-screen_height = 700
+screen_width = size[1]*50
+screen_height = size[0]*50
 
 
 # Set the width and height of the screen [width, height]
@@ -61,23 +72,6 @@ b = box
 p = player
 # = player on goal
 '''
-game = np.array([["w","w","w","w","w","w","w"],
-				  ["w","e","e","e","e","e","w"],
-				  ["w","e","e","e","e","e","w"],
-				  ["w","p","g","b","e","e","w"],
-				  ["w","e","e","e","e","e","w"],
-				  ["w","e","e","e","e","e","w"],
-				  ["w","w","w","w","w","w","w"]])
-
-game = np.array([["e","e","w","w","w","w","w","e"],
-				 ["w","w","w","e","e","e","w","e"],
-				 ["w","g","p","b","e","e","w","e"],
-				 ["w","w","w","e","b","g","w","e"],
-				 ["w","g","w","w","b","e","w","e"],
-				 ["w","e","w","e","g","e","w","w"],
-				 ["w","b","e","@","b","b","g","w"],
-				 ["w","e","e","e","g","e","e","w"],
-				 ["w","w","w","w","w","w","w","w"]])
 
 find_player = np.where(game=="p")
 player_pos = np.array((find_player[0][0],find_player[1][0]))
@@ -198,7 +192,6 @@ while not done:
             elif current_elem == "@":
                 screen.blit(image_box_goal,(sprite_width*column, sprite_height*row))
 #pygame.draw.rect(screen,color,[sprite_width*column,sprite_height*row,sprite_width,sprite_height])
-
     pygame.display.flip()
 
     # --- Limit to 60 frames per second
