@@ -9,19 +9,21 @@ GREEN = (0,   255,   0)
 RED   = (255,   0,   0)
 BLUE =  (0  ,   0, 255)
 
-image_empty = pygame.image.load("sprites/empty.png")
-image_wall = pygame.image.load("sprites/wall.png")
-image_player = pygame.image.load("sprites/player.png")
-image_player_goal = pygame.image.load("sprites/playerGoal.png")
-image_goal = pygame.image.load("sprites/goal.png")
-image_box = pygame.image.load("sprites/box.png")
-image_box_goal = pygame.image.load("sprites/boxGoal.png")
+sprite_folder ="sprites/poke/"
 
-game = np.array([["e","e","w","w","w","w","w","e"],
-				 ["w","w","w","e","e","e","w","e"],
-				 ["w","g","p","b","e","e","w","e"],
-				 ["w","w","w","e","b","g","w","e"],
-				 ["w","g","w","w","b","e","w","e"],
+image_empty       = pygame.image.load(sprite_folder + "empty.png")
+image_wall        = pygame.image.load(sprite_folder + "wall.png")
+image_player      = pygame.image.load(sprite_folder + "player.png")
+image_player_goal = pygame.image.load(sprite_folder + "playerGoal.png")
+image_goal        = pygame.image.load(sprite_folder + "goal.png")
+image_box         = pygame.image.load(sprite_folder + "box.png")
+image_box_goal    = pygame.image.load(sprite_folder + "boxGoal.png")
+
+game = np.array([["w","w","w","w","w","w","w","w"],
+				 ["w","w","w","e","e","e","w","w"],
+				 ["w","g","p","b","e","e","w","w"],
+				 ["w","w","w","e","b","g","w","w"],
+				 ["w","g","w","w","b","e","w","w"],
 				 ["w","e","w","e","g","e","w","w"],
 				 ["w","b","e","@","b","b","g","w"],
 				 ["w","e","e","e","g","e","e","w"],
