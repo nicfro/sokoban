@@ -177,6 +177,11 @@ while not done:
             moves += 1
             new_board, new_position = move(new_position, new_board, direction)
 
+            if event.key == pygame.K_r:
+                new_board = copy.copy(game)
+                find_player = np.where(game=="p")
+                new_position = np.array((find_player[0][0],find_player[1][0]))
+
     for row in range(len(new_board)):
         for column in range(len(new_board[0])):
             current_elem = new_board[row][column]
