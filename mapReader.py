@@ -1,5 +1,12 @@
 import numpy as np
 import pickle
+import platform
+
+line_ending = '\r\n'
+
+if (platform.system() == 'Darwin'): #Fixes Yuan's problem
+    line_ending = '\n'
+
 
 def reader():
 	file = open('maps.txt', 'rb')
@@ -8,7 +15,7 @@ def reader():
 	maps = []
 	for line in file:
 	    if start == True:
-	        if line == bytes('\r\n', 'utf-8'):
+	        if line == bytes(line_ending, 'utf-8'):
 	            start = False
 	            counter += 1
 	        else:
@@ -32,7 +39,7 @@ def reader():
 	            else:
 	                maps.append([mapLine])
 	    else:
-	        if line == bytes('\r\n', 'utf-8'):
+	        if line == bytes(line_ending, 'utf-8'):
 	            start = True
 
 	return maps
