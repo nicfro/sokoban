@@ -4,7 +4,7 @@ import platform
 
 line_ending = '\r\n'
 
-if (platform.system() == 'Darwin'): #Fixes Yuan's problem
+if (platform.system() == 'Darwin' or platform.system() == 'Linux'): #Fixes Yuan's problem
     line_ending = '\n'
 
 
