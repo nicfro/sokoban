@@ -18,7 +18,7 @@ def reader():
     borders = []
     for line in file:
         if start == True:
-            if line == bytes(line_ending):#, 'utf-8'):
+            if line == bytes(line_ending, 'utf-8'):
                 start = False
                 counter += 1
             else:
@@ -49,7 +49,7 @@ def reader():
                 else:
                     maps.append([mapLine])
         else:
-            if line == bytes(line_ending):#, 'utf-8'):
+            if line == bytes(line_ending, 'utf-8'):
                 start = True
                 border_parse = True
     return maps, borders
