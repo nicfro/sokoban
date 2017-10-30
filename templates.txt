@@ -1,0 +1,135 @@
+
+0
+nnnnn
+n   n
+n   n
+n   n
+nnnnn
+
+
+0
+nnnnn
+n#  n
+n   n
+n   n
+nnnnn
+
+
+4 5 9 10
+nnn  
+n##  
+n   n
+n   n
+nnnnn
+
+
+0
+nnnnn
+n###n
+n   n
+n   n
+nnnnn
+
+
+0
+nnnnn
+n###n
+n#  n
+n#  n
+nnnnn
+
+
+3 11
+nn nn
+n#  n
+    n
+n  #n
+nnnnn
+
+
+11
+nnnnn
+n#  n
+    n
+n#  n
+nnnnn
+
+
+3 11 23
+nn nn
+n#  n
+    n
+n# #n
+nn nn
+
+
+3 11 15 23
+nn nn
+n# #n
+     
+n# #n
+nn nn
+
+
+0
+nnnnn
+n#  n
+n#  n
+n###n
+nnnnn
+
+
+11 15
+nnnnn
+n###n
+     
+n###n
+nnnnn
+
+
+10 15
+nnnnn
+n    
+n #  
+n   n
+nnnnn
+
+
+0
+nnnnn
+n###n
+n###n
+n###n
+nnnnn
+
+
+16 21 22
+nnnnn
+n###n
+nw  n
+    n
+  nnn
+
+
+2 4 22 24
+n n n
+n   n
+nw wn
+n   n
+n n n
+
+
+22 23 24
+nnnnn
+nwwwn
+nwwwn
+n   n
+n   n
+
+
+16 15 22 23
+nnnnn
+nwwwn
+  w  
+n   n
+n  nn
