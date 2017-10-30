@@ -33,7 +33,7 @@ def insertTemp(template):
     global curr_spot
     global size
     #pos = curr_spot * 3
-    x = curr_spot / size*3
+    x = curr_spot // size*3
     y = curr_spot % size*3
 
     #For all 9 fields, try to insert them into the map.
@@ -54,6 +54,14 @@ def checkSpot(x1,y1,x2,y2,template) :
     else:
         return 0
 
+#insertTemp(templates[4])
+#print(curr_spot)
+#insertTemp(templates[4])
+#print(curr_spot)
+#insertTemp(templates[4])
+#print(curr_spot)
+#insertTemp(templates[4])
+#print(curr_spot)
 #pprint broke. Using this instead :P
 for i in range(0,15):
     line = []
@@ -61,4 +69,6 @@ for i in range(0,15):
         line.append(template_map[i][j])
     print(line)
     print("\n")
+
+
 
