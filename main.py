@@ -3,6 +3,7 @@ import pygame
 import math
 import copy
 import pickle
+from mapReader import reader
 
 BLACK = (0,     0,   0)
 WHITE = (255, 255, 255)
@@ -35,7 +36,7 @@ game = np.array([["w","w","w","w","w","w","w","w"],
 				 ["w","e","e","e","g","e","e","w"],
 				 ["w","w","w","w","w","w","w","w"]])
 
-maps = pickle.load( open( "maps.p", "rb" ))
+maps = reader()
 
 def getLevel(level):
 	return(np.asarray(maps[level]))
@@ -229,8 +230,8 @@ while not done:
 
     pygame.display.flip()
     if isDone(new_board, number_of_goals):
-    	print("hello")
     	level += 1
+    	print("Completed Level, moving to level: ", level)
     	new_board = getLevel(level)
     	new_position = findPlayer(new_board)
     	screen = initializeScreen(game)
