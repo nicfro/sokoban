@@ -33,7 +33,11 @@ game = np.array([["w","w","w","w","w","w","w","w"],
 
 maps = pickle.load( open( "maps.p", "rb" ))
 
-#game = np.asarray(maps[0])
+def getLevel(level):
+	return(np.asarray(maps[level]))
+
+level = 0
+game = getLevel(level)
 size = np.shape(game)
 
 pygame.init()
@@ -179,7 +183,6 @@ moves = 0
 anim_count = 1
 
 number_of_goals = findGoals(new_board)
-print(number_of_goals)
 
 while not done:
     # --- Main event loop
@@ -225,10 +228,17 @@ while not done:
                 image = image_box_goal
             screen.blit(image,(sprite_width*column, sprite_height*row))
     anim_count *= -1
-    pygame.display.flip()
 
+    pygame.display.flip()
     if isDone(new_board, number_of_goals):
-    	print("you have won!")
+    	print("hello")
+    	level += 1
+    	new_board = getLevel(level)
+    	new_position = findPlayer(new_board)
+	
+
+
+
     # --- Limit to 60 frames per second
     clock.tick(10)
 
