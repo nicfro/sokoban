@@ -11,7 +11,7 @@ GREEN = (0,   255,   0)
 RED   = (255,   0,   0)
 BLUE =  (0  ,   0, 255)
 
-sprite_folder ="sprites/poke/"
+sprite_folder ="sprites/"
 
 image_empty       = pygame.image.load(sprite_folder + "empty.png")
 image_wall        = pygame.image.load(sprite_folder + "wall.png")
@@ -19,12 +19,21 @@ image_player      = pygame.image.load(sprite_folder + "player.png")
 image_player_goal = pygame.image.load(sprite_folder + "playerGoal.png")
 image_goal        = pygame.image.load(sprite_folder + "goal.png")
 image_box         = pygame.image.load(sprite_folder + "box.png")
-image_box2        = pygame.image.load(sprite_folder + "box2.png")#Outcomment if not poke
+image_box2        = pygame.image.load(sprite_folder + "box.png")#Outcomment if not poke
 image_box_goal    = pygame.image.load(sprite_folder + "boxGoal.png")
 
 sprite_width = 50
 sprite_height = 50
 
+'''
+w = wall
+e = empty
+g = goal
+b = box
+@ = box on goal
+p = player
+# = player on goal
+'''
 
 game = np.array([["w","w","w","w","w","w","w","w"],
 				 ["w","w","w","e","e","e","w","w"],
@@ -67,16 +76,6 @@ NO = (0,0)
 clock = pygame.time.Clock()
 pygame.key.set_repeat(100,100)
 pygame.display.set_caption("Sokoban")
-
-'''
-w = wall
-e = empty
-g = goal
-b = box
-@ = box on goal
-p = player
-# = player on goal
-'''
 
 def findGoals(game):
 	goals1 = np.shape(np.where(game=="g"))[1]
@@ -236,12 +235,8 @@ while not done:
     	new_position = findPlayer(new_board)
     	screen = initializeScreen(game)
 	
-
-
-
     # --- Limit to 60 frames per second
     clock.tick(30)
-
 
 # Close the window and quit.
 pygame.quit()
