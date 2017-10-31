@@ -33,7 +33,7 @@ game = np.array([["w","w","w","w","w","w","w","w"],
 
 maps = pickle.load( open( "maps.p", "rb" ))
 
-game = np.asarray(maps[0])
+#game = np.asarray(maps[0])
 size = np.shape(game)
 
 pygame.init()
@@ -78,9 +78,10 @@ p = player
 # = player on goal
 '''
 
-def getGoals(game):
-	goals = np.shape(np.where(game=="g"))[1]
-	return goals
+def findGoals(game):
+	goals1 = np.shape(np.where(game=="g"))[1]
+	goals2 = np.shape(np.where(game=="@"))[1]
+	return goals1+goals2
 
 def findPlayer(game):
 	find_player = np.where(game=="p")
@@ -176,6 +177,10 @@ new_board, new_position = move(findPlayer(game), game, NO)
 moves = 0
 # -------- Main Program Loop -----------
 anim_count = 1
+
+number_of_goals = findGoals(new_board)
+print(number_of_goals)
+
 while not done:
     # --- Main event loop
     for event in pygame.event.get():
@@ -222,7 +227,11 @@ while not done:
     anim_count *= -1
     pygame.display.flip()
 
+    if isDone(new_board, number_of_goals):
+    	print("you have won!")
     # --- Limit to 60 frames per second
     clock.tick(10)
+
+
 # Close the window and quit.
 pygame.quit()
