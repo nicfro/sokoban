@@ -21,6 +21,10 @@ image_box         = pygame.image.load(sprite_folder + "box.png")
 image_box2        = pygame.image.load(sprite_folder + "box2.png")#Outcomment if not poke
 image_box_goal    = pygame.image.load(sprite_folder + "boxGoal.png")
 
+sprite_width = 50
+sprite_height = 50
+
+
 game = np.array([["w","w","w","w","w","w","w","w"],
 				 ["w","w","w","e","e","e","w","w"],
 				 ["w","g","p","b","e","e","w","w"],
@@ -45,24 +49,13 @@ pygame.init()
 screen_width = size[1]*50
 screen_height = size[0]*50
 
-
 # Set the width and height of the screen [width, height]
 screen = pygame.display.set_mode([screen_width,screen_height])
 
-pygame.display.set_caption("Sokoban")
-
-done = False
-sprite_width = 50
-sprite_height = 50
-
-screen = pygame.display.set_mode([screen_width, screen_height])
-
-#TODO: Find out why you wrote this.
-all_sprites_list = pygame.sprite.Group()
 
 
 # Used to manage how fast the screen updates
-clock = pygame.time.Clock()
+
 
 R = (0,1)
 L = (0,-1)
@@ -70,7 +63,9 @@ U = (-1,0)
 D = (1,0)
 NO = (0,0)
 
-pygame.key.set_repeat(200,200)
+clock = pygame.time.Clock()
+pygame.key.set_repeat(100,100)
+pygame.display.set_caption("Sokoban")
 
 '''
 w = wall
@@ -184,6 +179,7 @@ anim_count = 1
 
 number_of_goals = findGoals(new_board)
 
+done = False
 while not done:
     # --- Main event loop
     for event in pygame.event.get():
@@ -240,7 +236,7 @@ while not done:
 
 
     # --- Limit to 60 frames per second
-    clock.tick(10)
+    clock.tick(30)
 
 
 # Close the window and quit.
