@@ -42,15 +42,20 @@ def getLevel(level):
 
 level = 0
 game = getLevel(level)
-size = np.shape(game)
+
 
 pygame.init()
 
-screen_width = size[1]*50
-screen_height = size[0]*50
+def initializeScreen(game):
+	size = np.shape(game)
 
-# Set the width and height of the screen [width, height]
-screen = pygame.display.set_mode([screen_width,screen_height])
+	screen_width = size[1]*sprite_width
+	screen_height = size[0]*sprite_height
+
+	# Set the width and height of the screen [width, height]
+	return pygame.display.set_mode([screen_width,screen_height])
+
+screen = initializeScreen(game)
 
 R = (0,1)
 L = (0,-1)
@@ -228,6 +233,7 @@ while not done:
     	level += 1
     	new_board = getLevel(level)
     	new_position = findPlayer(new_board)
+    	screen = initializeScreen(game)
 	
 
 
