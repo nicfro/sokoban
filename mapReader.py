@@ -1,3 +1,4 @@
+import numpy as np
 import pickle
 
 file = open('maps.txt', 'rb')
@@ -12,7 +13,7 @@ for line in file:
         else:
             #line into array
             mapLine = line.decode("utf-8")
-            mapLine = mapLine[:-4]
+            mapLine = mapLine[:-2]
             mapLine = list(mapLine)
             for i in mapLine:
                 if i == 'X':

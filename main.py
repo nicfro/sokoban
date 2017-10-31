@@ -2,6 +2,7 @@ import numpy as np
 import pygame
 import math
 import copy
+import pickle
 
 BLACK = (0,     0,   0)
 WHITE = (255, 255, 255)
@@ -30,8 +31,11 @@ game = np.array([["w","w","w","w","w","w","w","w"],
 				 ["w","e","e","e","g","e","e","w"],
 				 ["w","w","w","w","w","w","w","w"]])
 
+maps = pickle.load( open( "maps.p", "rb" ))
+
+game = np.asarray(maps[0])
 size = np.shape(game)
-print(size)
+
 pygame.init()
 
 screen_width = size[1]*50
@@ -74,9 +78,14 @@ p = player
 # = player on goal
 '''
 
-find_player = np.where(game=="p")
-player_pos = np.array((find_player[0][0],find_player[1][0]))
-goals = np.shape(np.where(game=="g"))[1]
+def getGoals(game):
+	goals = np.shape(np.where(game=="g"))[1]
+	return goals
+
+def findPlayer(game):
+	find_player = np.where(game=="p")
+	player_pos = np.array((find_player[0][0],find_player[1][0]))
+	return player_pos
 
 def legalMove(position,board,direction):
 	move = board[tuple(position + direction)]
@@ -108,7 +117,10 @@ def move(position, board, direction):
 
 		if move == "g":
 			board[tuple(position + direction)] = "#"
-			board[tuple(position)] = "e"
+			if current == "#":
+				board[tuple(position)] = "g"
+			else:
+				board[tuple(position)] = "e"
 
 		if move == "b":
 			next_to_box = board[tuple(position + direction + direction)]
@@ -119,6 +131,7 @@ def move(position, board, direction):
 					board[tuple(position)] = "g"
 				else:
 					board[tuple(position)] = "e"
+				
 			if next_to_box == "g":
 				board[tuple(position + direction + direction)] = "@"
 				board[tuple(position + direction)] = "p"
@@ -126,6 +139,7 @@ def move(position, board, direction):
 					board[tuple(position)] = "g"
 				else:
 					board[tuple(position)] = "e"
+				
 
 		if move == "@":
 			next_to_box = board[tuple(position + direction + direction)]
@@ -136,10 +150,12 @@ def move(position, board, direction):
 					board[tuple(position)] = "g"
 				else:
 					board[tuple(position)] = "e"
+				
 
 			if next_to_box == "g":
 				board[tuple(position + direction + direction)] = "@"
 				board[tuple(position + direction)] = "#"
+				
 				if current == "#":
 					board[tuple(position)] = "g"
 				else:
@@ -156,7 +172,7 @@ def isDone(board, goals):
 	else:
 		return 0
 
-new_board, new_position = move(player_pos, game, NO)
+new_board, new_position = move(findPlayer(game), game, NO)
 moves = 0
 # -------- Main Program Loop -----------
 anim_count = 1
@@ -180,8 +196,7 @@ while not done:
 
             if event.key == pygame.K_r:
                 new_board = copy.copy(game)
-                find_player = np.where(game=="p")
-                new_position = np.array((find_player[0][0],find_player[1][0]))
+                new_position = findPlayer(game)
 
     for row in range(len(new_board)):
         for column in range(len(new_board[0])):
