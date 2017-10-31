@@ -52,11 +52,6 @@ screen_height = size[0]*50
 # Set the width and height of the screen [width, height]
 screen = pygame.display.set_mode([screen_width,screen_height])
 
-
-
-# Used to manage how fast the screen updates
-
-
 R = (0,1)
 L = (0,-1)
 U = (-1,0)
@@ -172,14 +167,16 @@ def isDone(board, goals):
 	else:
 		return 0
 
+#create board, get position and find number of goals
 new_board, new_position = move(findPlayer(game), game, NO)
-moves = 0
-# -------- Main Program Loop -----------
-anim_count = 1
-
 number_of_goals = findGoals(new_board)
 
+
+# -------- Main Program Loop -----------
+anim_count = 1
+moves = 0
 done = False
+
 while not done:
     # --- Main event loop
     for event in pygame.event.get():
