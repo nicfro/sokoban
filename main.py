@@ -234,6 +234,7 @@ while not done:
     	new_board = getLevel(level)
     	new_position = findPlayer(new_board)
     	screen = initializeScreen(game)
+    	number_of_goals = findGoals(new_board)
 	
     # --- Limit to 60 frames per second
     clock.tick(30)
