@@ -166,6 +166,14 @@ def move(position, board, direction):
 	else:
 		return copy.copy(board), position
 
+def seriesMove(position, board, directions):
+	new_position = position
+	new_board  = board
+	for direction in directions:
+		new_board, new_position = move(position, board, direction)
+	return new_board, new_position
+
+
 def isDone(board, goals):
 	if np.shape(np.where(board=="@"))[1] == goals:
 		return 1
