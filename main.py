@@ -66,7 +66,7 @@ def initializeScreen(game):
 	# Set the width and height of the screen [width, height]
 	return pygame.display.set_mode([screen_width,screen_height])
 
-screen = initializeScreen(game)
+
 
 R = (0,1)
 L = (0,-1)
@@ -182,22 +182,26 @@ def isDone(board, goals):
 	else:
 		return 0
 
-#create board, get position and find number of goals
-new_board, new_position = move(findPlayer(game), game, NO)
-number_of_goals = findGoals(new_board)
 
 
-# -------- Main Program Loop -----------
-anim_count = 1
-moves = 0
-done = False
+def runGame(game,premoves = []):
+	screen = initializeScreen(game)
+	#create board, get position and find number of goals
+	new_board, new_position = move(findPlayer(game), game, NO)
+	number_of_goals = findGoals(new_board)
 
-def runGame(premoves = []):
 
+	anim_count = 1
+	moves = 0
+	done = False
+	premove_index = 0
 	while not done:
 		# ---premoves loop
-		for direction in premoves:
-			new_board, new_position = move(new_position, new_board, direction)
+		if premove_index < len(premoves):
+			#print(premoves[premove_index])
+			new_board, new_position = move(new_position, new_board, premoves[premove_index])
+			premove_index += 1
+			moves += 1
 			time.sleep(0.1)
 		# --- Main event loop
 		for event in pygame.event.get():
@@ -254,6 +258,7 @@ def runGame(premoves = []):
 		# --- Limit to 60 frames per second
 		clock.tick(30)
 
-runGame([U,U,R])
+premoves = [U,U,R,R,R,R,R,U,R]
+runGame(game, premoves)
 # Close the window and quit.
 pygame.quit()
