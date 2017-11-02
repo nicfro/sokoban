@@ -43,8 +43,3 @@ def reader():
 	            start = True
 
 	return maps
-<<<<<<< HEAD
-
-print(reader())
-=======
->>>>>>> b8fdc6fd7bf3de1793c9162010842a8a5637624f
