@@ -36,3 +36,5 @@ def reader():
 	            start = True
 
 	return maps
+
+print(reader())
