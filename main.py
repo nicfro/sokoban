@@ -3,6 +3,7 @@ import pygame
 import math
 import copy
 import pickle
+import time
 from mapReader import reader
 
 BLACK = (0,     0,   0)
@@ -171,6 +172,7 @@ def seriesMove(position, board, directions):
 	new_board  = board
 	for direction in directions:
 		new_board, new_position = move(position, board, direction)
+		time.sleep(0.1)
 	return new_board, new_position
 
 
@@ -190,61 +192,68 @@ anim_count = 1
 moves = 0
 done = False
 
-while not done:
-    # --- Main event loop
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            done = True
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                direction = U
-            if event.key == pygame.K_DOWN:
-                direction = D
-            if event.key == pygame.K_LEFT:
-            	direction = L
-            if event.key == pygame.K_RIGHT:
-                direction = R
-            #TODO: This is why other keys will trigger movement
-            moves += 1
-            new_board, new_position = move(new_position, new_board, direction)
+def runGame(premoves = []):
 
-            if event.key == pygame.K_r:
-                new_board = copy.copy(game)
-                new_position = findPlayer(game)
+	while not done:
+		# ---premoves loop
+		for direction in premoves:
+			new_board, new_position = move(new_position, new_board, direction)
+			time.sleep(0.1)
+		# --- Main event loop
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				done = True
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_UP:
+					direction = U
+				if event.key == pygame.K_DOWN:
+					direction = D
+				if event.key == pygame.K_LEFT:
+					direction = L
+				if event.key == pygame.K_RIGHT:
+					direction = R
+				#TODO: This is why other keys will trigger movement
+				moves += 1
+				new_board, new_position = move(new_position, new_board, direction)
 
-    for row in range(len(new_board)):
-        for column in range(len(new_board[0])):
-            current_elem = new_board[row][column]
-            if current_elem == "w":
-                image = image_wall
-            elif current_elem == "p":
-                image = image_player
-            elif current_elem == "g":
-                image = image_goal
-            elif current_elem == "b":
-                if anim_count == 1:
-                    image = image_box
-                elif anim_count == -1:
-                    image = image_box2
-            elif current_elem == "e":
-                image = image_empty
-            elif current_elem == "#":
-                image = image_player
-            elif current_elem == "@":
-                image = image_box_goal
-            screen.blit(image,(sprite_width*column, sprite_height*row))
-    anim_count *= -1
+				if event.key == pygame.K_r:
+					new_board = copy.copy(game)
+					new_position = findPlayer(game)
 
-    pygame.display.flip()
-    if isDone(new_board, number_of_goals):
-    	level += 1
-    	print("Completed Level, moving to level: ", level)
-    	new_board = getLevel(level)
-    	new_position = findPlayer(new_board)
-    	screen = initializeScreen(game)
-	
-    # --- Limit to 60 frames per second
-    clock.tick(30)
+		for row in range(len(new_board)):
+			for column in range(len(new_board[0])):
+				current_elem = new_board[row][column]
+				if current_elem == "w":
+					image = image_wall
+				elif current_elem == "p":
+					image = image_player
+				elif current_elem == "g":
+					image = image_goal
+				elif current_elem == "b":
+					if anim_count == 1:
+						image = image_box
+					elif anim_count == -1:
+						image = image_box2
+				elif current_elem == "e":
+					image = image_empty
+				elif current_elem == "#":
+					image = image_player
+				elif current_elem == "@":
+					image = image_box_goal
+				screen.blit(image,(sprite_width*column, sprite_height*row))
+		anim_count *= -1
 
+		pygame.display.flip()
+		if isDone(new_board, number_of_goals):
+			level += 1
+			print("Completed Level, moving to level: ", level)
+			new_board = getLevel(level)
+			new_position = findPlayer(new_board)
+			screen = initializeScreen(game)
+		
+		# --- Limit to 60 frames per second
+		clock.tick(30)
+
+runGame([U,U,R])
 # Close the window and quit.
 pygame.quit()
