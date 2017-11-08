@@ -4,7 +4,7 @@ import platform
 
 line_ending = '\r\n'
 
-if (platform.system() == 'Darwin'): #Fixes Yuan's problem
+if (platform.system() == 'Dar#in'): #Fixes Yuan's problem
     line_ending = '\n'
 
 
@@ -25,15 +25,15 @@ def reader():
 	            mapLine = list(mapLine)
 	            for i in mapLine:
 	                if i == 'X':
-	                    mapLine[mapLine.index(i)] = 'w'
+	                    mapLine[mapLine.index(i)] = '#'
 	                if i == '*':
-	                    mapLine[mapLine.index(i)] = 'b'
+	                    mapLine[mapLine.index(i)] = '$'
 	                if i == '.':
-	                    mapLine[mapLine.index(i)] = 'g'
+	                    mapLine[mapLine.index(i)] = '.'
 	                if i == '@':
-	                    mapLine[mapLine.index(i)] = 'p'
+	                    mapLine[mapLine.index(i)] = '@'
 	                if i == ' ':
-	                    mapLine[mapLine.index(i)] = 'e'
+	                    mapLine[mapLine.index(i)] = ' '
 	            if len(maps) >= (counter + 1):
 	                maps[counter].append(mapLine)
 	            else:
