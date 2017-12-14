@@ -3,6 +3,7 @@ import numpy as np
 import copy
 from pprint import pprint
 from templateReader import reader
+from collections import defaultdict
 
 #Init
 size = 5
@@ -12,7 +13,29 @@ template_map = []
 for i in range(0,size):
     pass#template_map.append()
 
-templates, borders = reader()
+templates = reader()
+
+availableDict = defaultdict(list)
+
+'''
+Initialize dictionary for available connections
+'''
+templateNumber = 0
+for template in templates:
+    listToAdd = template[1:-1][...,1:4]
+    rot = 0
+    for i in range(4):
+        temp = np.rot90(listToAdd, i)
+        counter = 1
+        for j in temp:
+            for k in j:
+                if k == " ":
+                    availableDict[counter].append([templateNumber,i])
+                counter += 1
+    templateNumber += 1
+
+    
+
 
 arr = np.array = (["e","e","e","e","e","e","e","e","e","e","e","e","e","e","e"])
 
@@ -28,6 +51,15 @@ rotation = random.randint(0,3)
 
 #else:
 #def checkBorder(curr_pos,template_number):
+
+#def rotate(template):
+
+def rotateTemplate(template, rotations):
+    return np.rot90(template, rotations)
+
+print(templates[6])
+print(rotateTemplate(templates[6], 3))
+
 
 def insertTemp(template):
     global curr_spot
@@ -63,12 +95,15 @@ def checkSpot(x1,y1,x2,y2,template) :
 #insertTemp(templates[4])
 #print(curr_spot)
 #pprint broke. Using this instead :P
-for i in range(0,15):
-    line = []
-    for j in range (0,15):
-        line.append(template_map[i][j])
-    print(line)
-    print("\n")
+
+#print(template_map[1])
+
+#for i in range(0,15):
+#    line = []
+#    for j in range (0,15):
+#        line.append(template_map[i][j])
+#    print(line)
+#    print("\n")
 
 
 
