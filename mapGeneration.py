@@ -18,8 +18,6 @@ def reader():
 
     return np.array(res)
 
-templates = reader()
-
 def getRandomTemplate(templateList):
     return templateList[random.randint(0, len(templateList)-1)]
 
@@ -77,19 +75,23 @@ availableDict = defaultdict(list)
 Creates dictionary for all open (i,j) coordinates
 given a rotation
 '''
-for templateIdx in range(len(templates)):
-    fitted = fitTemplate3by3(templates[templateIdx])
-    for rot in range(4):
-        temp = np.rot90(fitted, rot)
-        for i in range(3):
-            for j in range(3):
-                if (i == 1) and (j == 1):
-                    continue
-
-                if temp[i][j] == " ":
-                    availableDict[(i,j)].append([templateIdx,rot])
 
 def constructNewMap(dimx,dimy):
+    templates = reader()
+
+    for templateIdx in range(len(templates)):
+        fitted = fitTemplate3by3(templates[templateIdx])
+        
+        for rot in range(4):
+            temp = np.rot90(fitted, rot)
+            for i in range(3):
+                for j in range(3):
+                    if (i == 1) and (j == 1):
+                        continue
+
+                    if temp[i][j] == " ":
+                        availableDict[(i,j)].append([templateIdx,rot])
+
     newMap = constructEmptyMap(np.array([dimx,dimy]))
     dim = np.shape(newMap)
 
@@ -160,6 +162,14 @@ def constructNewMap(dimx,dimy):
                     
     return newMap
 
-
-for i in range(10):
-    print(constructNewMap(3,4))
+x = 2
+y = 3
+generatedMap = []
+for i in range(1000):
+    res = constructNewMap(x,y)
+    if  res != 0:
+        res = np.vstack((res,["#"]*y*3))
+        res = np.vstack((["#"]*y*3, res))
+        res = np.hstack((res,np.array(["#"]*((x*3)+2)).reshape(-1,1)))
+        res = np.hstack((np.array(["#"]*((x*3)+2)).reshape(-1,1), res))
+        generatedMap.append(res)
