@@ -50,7 +50,7 @@ maps = reader()
 def getLevel(level):
 	return(np.asarray(maps[level]))
 
-level = 0
+level = 36
 game = getLevel(level)
 
 
