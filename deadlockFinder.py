@@ -1,3 +1,5 @@
+from mapGeneration import 
+
 W = "#"
 E = " "
 

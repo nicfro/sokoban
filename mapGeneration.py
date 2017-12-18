@@ -78,18 +78,19 @@ given a rotation
 
 def constructNewMap(dimx,dimy):
     templates = reader()
-    
-    for templateIdx in range(len(templates)):
-    fitted = fitTemplate3by3(templates[templateIdx])
-    for rot in range(4):
-        temp = np.rot90(fitted, rot)
-        for i in range(3):
-            for j in range(3):
-                if (i == 1) and (j == 1):
-                    continue
 
-                if temp[i][j] == " ":
-                    availableDict[(i,j)].append([templateIdx,rot])
+    for templateIdx in range(len(templates)):
+        fitted = fitTemplate3by3(templates[templateIdx])
+        
+        for rot in range(4):
+            temp = np.rot90(fitted, rot)
+            for i in range(3):
+                for j in range(3):
+                    if (i == 1) and (j == 1):
+                        continue
+
+                    if temp[i][j] == " ":
+                        availableDict[(i,j)].append([templateIdx,rot])
 
     newMap = constructEmptyMap(np.array([dimx,dimy]))
     dim = np.shape(newMap)
