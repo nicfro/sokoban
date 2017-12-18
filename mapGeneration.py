@@ -163,7 +163,6 @@ def constructWalledMap(dimx,dimy):
 
 def fillNewMapWithObjectives(numOfGoals,newMap):
     if (newMap == 0):
-        print('ups')
         return
     #MARIUS CODE
     #newList = [(1,1),(1,2),(2,1),(2,2),(2,3),(3,3)]
@@ -180,8 +179,8 @@ def insertObjective(numOfObj,obj,newMap,fields):
         done = False
         while (not done):
             pos = random.randint(0,len(fields))
-            print(fields[pos][0])
-            print(fields[pos][1])
+            #print(fields[pos][0])
+            #print(fields[pos][1])
             cand = newMap[fields[pos][0]][fields[pos][1]]
             if (not (cand == '$' or cand == '.')):
                 newMap[fields[pos][0]][fields[pos][1]] = obj
