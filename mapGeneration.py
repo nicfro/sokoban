@@ -1,6 +1,8 @@
 import numpy as np
 import random
 from collections import defaultdict
+from deadlockFinder import find_deadlocks
+from flood_fill import fill_map
 
 def reader():
     file = open('templates.txt', 'rb')
@@ -17,6 +19,8 @@ def reader():
         temp = np.vstack([temp, np.array(read)])
 
     return np.array(res)
+
+templates = reader()
 
 def getRandomTemplate(templateList):
     return templateList[random.randint(0, len(templateList)-1)]
@@ -60,7 +64,7 @@ def getLegal(openFields):
     res = []
     for i in openFields:
         res += availableDict[i]
-    
+
     concat = [tuple(x) for x in res]
     dupes = [x for n, x in enumerate(concat) if x in concat[:n]]
     if len(dupes) == 0:
@@ -75,23 +79,19 @@ availableDict = defaultdict(list)
 Creates dictionary for all open (i,j) coordinates
 given a rotation
 '''
+for templateIdx in range(len(templates)):
+    fitted = fitTemplate3by3(templates[templateIdx])
+    for rot in range(4):
+        temp = np.rot90(fitted, rot)
+        for i in range(3):
+            for j in range(3):
+                if (i == 1) and (j == 1):
+                    continue
 
-def constructNewMap(dimx,dimy):
-    templates = reader()
+                if temp[i][j] == " ":
+                    availableDict[(i,j)].append([templateIdx,rot])
 
-    for templateIdx in range(len(templates)):
-        fitted = fitTemplate3by3(templates[templateIdx])
-        
-        for rot in range(4):
-            temp = np.rot90(fitted, rot)
-            for i in range(3):
-                for j in range(3):
-                    if (i == 1) and (j == 1):
-                        continue
-
-                    if temp[i][j] == " ":
-                        availableDict[(i,j)].append([templateIdx,rot])
-
+def constructWalledMap(dimx,dimy):
     newMap = constructEmptyMap(np.array([dimx,dimy]))
     dim = np.shape(newMap)
 
@@ -159,17 +159,43 @@ def constructNewMap(dimx,dimy):
                     fittedTemplate = fitTemplate3by3(leftTemplate)
                     newMap[i*3:i*3+3][...,j*3:j*3+3] = fittedTemplate
                     templateSave[(i,j)] = template
-                    
     return newMap
 
-x = 2
-y = 3
-generatedMap = []
-for i in range(1000):
-    res = constructNewMap(x,y)
-    if  res != 0:
-        res = np.vstack((res,["#"]*y*3))
-        res = np.vstack((["#"]*y*3, res))
-        res = np.hstack((res,np.array(["#"]*((x*3)+2)).reshape(-1,1)))
-        res = np.hstack((np.array(["#"]*((x*3)+2)).reshape(-1,1), res))
-        generatedMap.append(res)
+def fillNewMapWithObjectives(numOfGoals,newMap):
+    if (newMap == 0):
+        print('ups')
+        return
+    #MARIUS CODE
+    #newList = [(1,1),(1,2),(2,1),(2,2),(2,3),(3,3)]
+    goodFields,emptyFields = find_deadlocks(newMap)
+
+    insertObjective(3,'$',newMap,goodFields)
+    insertObjective(3,'.',newMap,emptyFields)
+    insertObjective(1,'@',newMap,emptyFields)
+
+    return newMap
+
+def insertObjective(numOfObj,obj,newMap,fields):
+    for i in range(numOfObj):
+        done = False
+        while (not done):
+            pos = random.randint(0,len(fields))
+            print(fields[pos][0])
+            print(fields[pos][1])
+            cand = newMap[fields[pos][0]][fields[pos][1]]
+            if (not (cand == '$' or cand == '.')):
+                newMap[fields[pos][0]][fields[pos][1]] = obj
+                done = True
+
+
+
+def constructNewMap(dimx,dimy):
+    m = 0
+    while m == 0:
+        m = constructWalledMap(dimx,dimy)
+
+    fill_map(m)
+    print(fillNewMapWithObjectives(5,m))
+
+constructNewMap(3,4)
+

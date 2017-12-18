@@ -1,4 +1,3 @@
-from mapGeneration import 
 
 W = "#"
 E = " "
@@ -87,4 +86,4 @@ def find_deadlocks(m):
         if field not in deadlocks:
             available_fields.append(field)
 
-    return available_fields
+    return available_fields, empty_fields
