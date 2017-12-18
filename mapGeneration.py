@@ -178,7 +178,7 @@ def insertObjective(numOfObj,obj,newMap,fields):
     for i in range(numOfObj):
         done = False
         while (not done):
-            pos = random.randint(0,len(fields))
+            pos = random.randint(0,len(fields)-1)
             #print(fields[pos][0])
             #print(fields[pos][1])
             cand = newMap[fields[pos][0]][fields[pos][1]]
