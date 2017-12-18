@@ -18,8 +18,6 @@ def reader():
 
     return np.array(res)
 
-templates = reader()
-
 def getRandomTemplate(templateList):
     return templateList[random.randint(0, len(templateList)-1)]
 
@@ -77,7 +75,11 @@ availableDict = defaultdict(list)
 Creates dictionary for all open (i,j) coordinates
 given a rotation
 '''
-for templateIdx in range(len(templates)):
+
+def constructNewMap(dimx,dimy):
+    templates = reader()
+    
+    for templateIdx in range(len(templates)):
     fitted = fitTemplate3by3(templates[templateIdx])
     for rot in range(4):
         temp = np.rot90(fitted, rot)
@@ -89,7 +91,6 @@ for templateIdx in range(len(templates)):
                 if temp[i][j] == " ":
                     availableDict[(i,j)].append([templateIdx,rot])
 
-def constructNewMap(dimx,dimy):
     newMap = constructEmptyMap(np.array([dimx,dimy]))
     dim = np.shape(newMap)
 
