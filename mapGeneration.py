@@ -193,8 +193,8 @@ def constructNewMap(dimx,dimy):
     while m == 0:
         m = constructWalledMap(dimx,dimy)
 
-    fill_map(m)
-    print(fillNewMapWithObjectives(5,m))
+    m = fill_map(m)
+    print(np.array(fillNewMapWithObjectives(5,m)))
 
 constructNewMap(3,4)
 

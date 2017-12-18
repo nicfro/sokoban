@@ -24,11 +24,11 @@ def fix_map(m):
 
 def fill_map(m):
 
-    m = fix_map(m)
+    nm = fix_map(m)
 
     # Create nodes for all empty cells
     nodes = {}
-    for i, row in enumerate(m):
+    for i, row in enumerate(nm):
         for j, cell in enumerate(row):
             if cell == E:
                 n = Node(i, j)
@@ -85,7 +85,8 @@ def fill_map(m):
     for cell in biggest_area:
         field.append([cell.i,cell.j])
 
-    for i, row in enumerate(m):
+    for i, row in enumerate(nm):
         for j, cell in enumerate(row):
             if cell == E and [i,j] not in field:
-                m[i][j] = W
+                nm[i][j] = W
+    return nm
